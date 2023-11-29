@@ -1,7 +1,7 @@
 how to install like a boss
 
 step 1 
-Tell Bostra He is Handsome
+Pet a cat. Super important
 
 step 2 
 add this 
