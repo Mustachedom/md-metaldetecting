@@ -203,7 +203,7 @@ end
                         label = "Sell Loot",
                         icon = "fas fa-eye",
                         action = function()
-							lib.showContext('metaldetectshop')
+							lib.showContext('metaldetectsales')
 						end
                     },
                 },
