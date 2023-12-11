@@ -44,7 +44,7 @@ RegisterServerEvent('md-metaldetecting:server:cleanclump', function()
 		if Player.Functions.RemoveItem('clump', 1) then
 			Player.Functions.AddItem(metaldetectlow, 1)
 			TriggerClientEvent('QBCore:Notify', src, "You Got " .. metaldetectlow .. " !", "success")
-			TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items[metaldetectitem], "add",  1)
+			TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items[metaldetectlow], "add",  1)
 			TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['clump'], "remove",  1)
 		end
 	elseif chance >= 51 and chance <= 80 then
