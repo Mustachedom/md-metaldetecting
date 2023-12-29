@@ -79,11 +79,17 @@ end)
 
 
 function metaldetect()
+	QBCore.Functions.Notify("You found something!")
+	PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
+	FreezeEntityPosition(PlayerPedId(), true)
+	Wait(1500)
 exports['ps-ui']:Circle(function(success)
 if success then
 	TriggerServerEvent('md-metaldetecting:server:giveloot')
+	FreezeEntityPosition(PlayerPedId(), false)
 else
-	QBCore.Functions.Notify("Its A Circle Its not Hard")
+	QBCore.Functions.Notify("You failed to find something!")
+	FreezeEntityPosition(PlayerPedId(), false)
 end
 end, 1, 8) -- NumberOfCircles, 
 end
