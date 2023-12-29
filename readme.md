@@ -52,17 +52,164 @@
 ["goldring"] 				    = {["name"] = "goldring", 			    	["label"] = "Golden Ring", 		     ['weight'] = 100, 		["type"] = "item", 		["image"] = "goldring.png", 			    ["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = ""},
 ["rubyring"] 				    = {["name"] = "rubyring", 			    	["label"] = "Ruby Ring", 		     ['weight'] = 100, 		["type"] = "item", 		["image"] = "rubyring.png", 			    ["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = ""},
 ["toycar"] 				     	= {["name"] = "toycar", 			    	["label"] = "Toy Car", 		     	 ['weight'] = 100, 		["type"] = "item", 		["image"] = "toycar.png", 			    	["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = ""},
-["metaldetector"] 				= {["name"] = "metaldetector", 			    ["label"] = "Metal Detector", 		 ['weight'] = 100, 		["type"] = "item", 		["image"] = "leatherheadturtle.png", 		["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = ""},
+["metaldetector"] 				= {["name"] = "metaldetector", 			    ["label"] = "Metal Detector", 		 ['weight'] = 2500, 		["type"] = "item", 		["image"] = "metaldetector.png", 		["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = ""},
+```
+or
 
+`ox_inventory/data/items.lua`
+
+```lua
+	["golddiamondring"] = {
+		label = "Gold Diamond Ring",
+		weight = 100,
+		stack = true,
+		close = true,
+		description = "",
+		client = {
+			image = "golddiamondring.png",
+		}
+	},
+
+	["goldbracelet"] = {
+		label = "Gold Bracelet",
+		weight = 100,
+		stack = true,
+		close = true,
+		description = "",
+		client = {
+			image = "goldbracelet.png",
+		}
+	},
+
+	["goldring"] = {
+		label = "Golden Ring",
+		weight = 100,
+		stack = true,
+		close = true,
+		description = "",
+		client = {
+			image = "goldring.png",
+		}
+	},
+
+	["rubyring"] = {
+		label = "Ruby Ring",
+		weight = 100,
+		stack = true,
+		close = true,
+		description = "",
+		client = {
+			image = "rubyring.png",
+		}
+	},
+
+	["bottlecap"] = {
+		label = "Bottle Cap",
+		weight = 100,
+		stack = true,
+		close = true,
+		description = "",
+		client = {
+			image = "bottlecap.png",
+		}
+	},
+
+	["corno"] = {
+		label = "Corno",
+		weight = 100,
+		stack = true,
+		close = true,
+		description = "",
+		client = {
+			image = "corno.png",
+		}
+	},
+
+	["toycar"] = {
+		label = "Toy Car",
+		weight = 100,
+		stack = true,
+		close = true,
+		description = "",
+		client = {
+			image = "toycar.png",
+		}
+	},
+
+	["metaldetector"] = {
+		label = "Metal Detector",
+		weight = 2500,
+		stack = true,
+		close = true,
+		description = "",
+		client = {
+			image = "metaldetector.png",
+		}
+	},
+
+	["1797coin"] = {
+		label = "1797 Coin",
+		weight = 100,
+		stack = true,
+		close = true,
+		description = "",
+		client = {
+			image = "1797coin.png",
+		}
+	},
+
+	["bobbypin"] = {
+		label = "Bobby Pin",
+		weight = 100,
+		stack = true,
+		close = true,
+		description = "",
+		client = {
+			image = "bobbypin.png",
+		}
+	},
+
+	["1792coin"] = {
+		label = "1792 Coin",
+		weight = 100,
+		stack = true,
+		close = true,
+		description = "",
+		client = {
+			image = "1792coin.png",
+		}
+	},
+
+	["diamondring"] = {
+		label = "Diamond Ring",
+		weight = 100,
+		stack = true,
+		close = true,
+		description = "",
+		client = {
+			image = "diamondring.png",
+		}
+	},
+
+	["clump"] = {
+		label = "Clump",
+		weight = 100,
+		stack = true,
+		close = true,
+		description = "",
+		client = {
+			image = "clump.png",
+		}
+	},
 ```
 
 **step 4**
 
-- Add items images to `qb-inventory/html/images`
+- Add items images to `qb-inventory/html/images` or `ox_inventory/web/images`
 
 **step 5**
 
-- Tell  [Bostra](https://discord.gg/K8gbPAgJ47) he is handsome again
+- Tell [Bostra](https://discord.gg/K8gbPAgJ47) he is handsome
 
 **step 6**
 
