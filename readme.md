@@ -19,11 +19,11 @@
 
 ## How to install like a boss
 
-**step 1**
+**Step 1**
 
 - Pet a cat, Super important.
 
-**step 2**
+**Step 2**
 
 - Add the following to `qb-core/server/player.lua` inside your existing playerdata
 
@@ -33,9 +33,10 @@
 
 ![](https://cdn.discordapp.com/attachments/1164709522691076120/1185708813244977295/image.png?ex=65909862&is=657e2362&hm=614ac159f3ad3f08ed7f5b3811aec2b2a405399959036d37b2783a5bb6ee7d09&)
  
-**step 3**
- 
-- Add the following Items to `qb-core/shared/items.lua`
+**Step 3**
+Add items to your inventory you use.
+
+`qb-core/shared/items.lua`
 
  ```lua
 ["1792coin"] 				    = {["name"] = "1792coin", 			    	["label"] = "1792 Coin", 		     ['weight'] = 100, 		["type"] = "item", 		["image"] = "1792coin.png", 			    ["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = ""},
@@ -52,7 +53,6 @@
 ["toycar"] 				     	= {["name"] = "toycar", 			    	["label"] = "Toy Car", 		     	 ['weight'] = 100, 		["type"] = "item", 		["image"] = "toycar.png", 			    	["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = ""},
 ["metaldetector"] 				= {["name"] = "metaldetector", 			    ["label"] = "Metal Detector", 		 ['weight'] = 2500, 		["type"] = "item", 		["image"] = "metaldetector.png", 		["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = ""},
 ```
-or
 
 `ox_inventory/data/items.lua`
 
@@ -201,14 +201,14 @@ or
 	},
 ```
 
-**step 4**
+**Step 4**
 
 - Add items images to `qb-inventory/html/images` or `ox_inventory/web/images`
 
-**step 5**
+**Step 5**
 
 - Tell [Bostra](https://discord.gg/K8gbPAgJ47) he is handsome
 
-**step 6**
+**Step 6**
 
 - take the [bostra](https://discord.gg/K8gbPAgJ47)_metaldetecor folder and place it in your resources folder
