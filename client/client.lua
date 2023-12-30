@@ -109,7 +109,7 @@ for k, v in pairs (Config.clumpwash) do
 					label = "Wash Clumps",
 					distance = 5,
 					onSelect = function()
-						exports["rpemotes"]:EmoteCommandStart("uncuff", 0)
+						TriggerEvent('animations:client:EmoteCommandStart', {"uncuff"})
 						QBCore.Functions.Progressbar("drink_something", "Washing Clumps", 4000, false, true, {
 						disableMovement = false,
 						disableCarMovement = false,
@@ -137,7 +137,7 @@ for k, v in pairs (Config.clumpwash) do
 				icon = "fas fa-sign-in-alt",
 				label = "Wash Clumps",
 				action = function()
-					exports["rpemotes"]:EmoteCommandStart("uncuff", 0)
+					TriggerEvent('animations:client:EmoteCommandStart', {"uncuff"})
 					QBCore.Functions.Progressbar("drink_something", "Washing Clumps", 4000, false, true, {
 					disableMovement = true,
 					disableCarMovement = false,
@@ -191,7 +191,7 @@ end
                         label = "Buy Metal Detector",
                         icon = "fas fa-eye",
                         action = function()
-							exports["rpemotes"]:EmoteCommandStart("uncuff", 0)
+							TriggerEvent('animations:client:EmoteCommandStart', {"uncuff"})
 							QBCore.Functions.Progressbar("drink_something", "Buying A Metal Detector", 4000, false, true, {
 							disableMovement = true,
 							disableCarMovement = false,
