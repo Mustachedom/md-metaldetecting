@@ -21,5 +21,4 @@ shared_scripts {
 
 lua54 'yes'
 
-dependency '/assetpacks'
-dependency 'bob74_ipl'
+
