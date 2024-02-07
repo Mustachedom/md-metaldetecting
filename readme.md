@@ -62,7 +62,7 @@ Add items to your inventory you use.
 		weight = 100,
 		stack = true,
 		close = true,
-		description = "",
+		description = "It's a gold ring with a diamond?",
 		client = {
 			image = "golddiamondring.png",
 		}
@@ -73,7 +73,7 @@ Add items to your inventory you use.
 		weight = 100,
 		stack = true,
 		close = true,
-		description = "",
+		description = "Is this bracelet real gold?",
 		client = {
 			image = "goldbracelet.png",
 		}
@@ -84,7 +84,7 @@ Add items to your inventory you use.
 		weight = 100,
 		stack = true,
 		close = true,
-		description = "",
+		description = "Ring of gold",
 		client = {
 			image = "goldring.png",
 		}
@@ -95,7 +95,7 @@ Add items to your inventory you use.
 		weight = 100,
 		stack = true,
 		close = true,
-		description = "",
+		description = "It is a ruby, not a rubix",
 		client = {
 			image = "rubyring.png",
 		}
@@ -106,7 +106,7 @@ Add items to your inventory you use.
 		weight = 100,
 		stack = true,
 		close = true,
-		description = "",
+		description = "Stepped on a pop top",
 		client = {
 			image = "bottlecap.png",
 		}
@@ -128,7 +128,7 @@ Add items to your inventory you use.
 		weight = 100,
 		stack = true,
 		close = true,
-		description = "",
+		description = "Don't put it in odd places",
 		client = {
 			image = "toycar.png",
 		}
@@ -139,7 +139,7 @@ Add items to your inventory you use.
 		weight = 2500,
 		stack = true,
 		close = true,
-		description = "",
+		description = "Maybe it can find things",
 		client = {
 			image = "metaldetector.png",
 		}
@@ -150,7 +150,7 @@ Add items to your inventory you use.
 		weight = 100,
 		stack = true,
 		close = true,
-		description = "",
+		description = "Dat's old",
 		client = {
 			image = "1797coin.png",
 		}
@@ -161,7 +161,7 @@ Add items to your inventory you use.
 		weight = 100,
 		stack = true,
 		close = true,
-		description = "",
+		description = "Put your hair up",
 		client = {
 			image = "bobbypin.png",
 		}
@@ -172,7 +172,7 @@ Add items to your inventory you use.
 		weight = 100,
 		stack = true,
 		close = true,
-		description = "",
+		description = "Even older",
 		client = {
 			image = "1792coin.png",
 		}
@@ -183,7 +183,7 @@ Add items to your inventory you use.
 		weight = 100,
 		stack = true,
 		close = true,
-		description = "",
+		description = "Pretty sure some poor kid made this",
 		client = {
 			image = "diamondring.png",
 		}
@@ -194,7 +194,7 @@ Add items to your inventory you use.
 		weight = 100,
 		stack = true,
 		close = true,
-		description = "",
+		description = "Not a turd",
 		client = {
 			image = "clump.png",
 		}
