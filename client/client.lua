@@ -101,7 +101,7 @@ for k, v in pairs (Config.clumpwash) do
 		coords = v,
 		size = vec(1,1,3),
 		rotation = 0,
-		debug = true,
+		debug = false,
 		options = {
 				{
 					name = 'clumpwash',
