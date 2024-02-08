@@ -39,19 +39,19 @@ Add items to your inventory you use.
 `qb-core/shared/items.lua`
 
  ```lua
-["1792coin"] 				    = {["name"] = "1792coin", 			    	["label"] = "1792 Coin", 		     ['weight'] = 100, 		["type"] = "item", 		["image"] = "1792coin.png", 			    ["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = ""},
-["1797coin"] 				    = {["name"] = "1797coin", 			    	["label"] = "1797 Coin", 		     ['weight'] = 100, 		["type"] = "item", 		["image"] = "1797coin.png", 			    ["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = ""},
-["bobbypin"] 				    = {["name"] = "bobbypin", 			    	["label"] = "Bobby Pin", 		     ['weight'] = 100, 		["type"] = "item", 		["image"] = "bobbypin.png", 			    ["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = ""},
-["bottlecap"] 				    = {["name"] = "bottlecap", 			    	["label"] = "Bottle Cap", 		     ['weight'] = 100, 		["type"] = "item", 		["image"] = "bottlecap.png", 			    ["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = ""},
-["clump"] 				    	= {["name"] = "clump", 			    		["label"] = "Clump", 		     	 ['weight'] = 100, 		["type"] = "item", 		["image"] = "clump.png", 			    	["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = ""},
+["1792coin"] 				    = {["name"] = "1792coin", 			    	["label"] = "1792 Coin", 		     ['weight'] = 100, 		["type"] = "item", 		["image"] = "1792coin.png", 			    ["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = "Even older"},
+["1797coin"] 				    = {["name"] = "1797coin", 			    	["label"] = "1797 Coin", 		     ['weight'] = 100, 		["type"] = "item", 		["image"] = "1797coin.png", 			    ["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = "Dat's old"},
+["bobbypin"] 				    = {["name"] = "bobbypin", 			    	["label"] = "Bobby Pin", 		     ['weight'] = 100, 		["type"] = "item", 		["image"] = "bobbypin.png", 			    ["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = "Put your hair up"},
+["bottlecap"] 				    = {["name"] = "bottlecap", 			    	["label"] = "Bottle Cap", 		     ['weight'] = 100, 		["type"] = "item", 		["image"] = "bottlecap.png", 			    ["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = "Stepped on a pop top"},
+["clump"] 				    	= {["name"] = "clump", 			    		["label"] = "Clump", 		     	 ['weight'] = 100, 		["type"] = "item", 		["image"] = "clump.png", 			    	["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = "Not a turd"},
 ["corno"] 				     	= {["name"] = "corno", 			    		["label"] = "Corno", 		     	 ['weight'] = 100, 		["type"] = "item", 		["image"] = "corno.png", 			    	["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = ""},
-["diamondring"] 				= {["name"] = "diamondring", 			    ["label"] = "Diamond Ring", 		 ['weight'] = 100, 		["type"] = "item", 		["image"] = "diamondring.png", 			    ["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = ""},
-["goldbracelet"] 				= {["name"] = "goldbracelet", 			    ["label"] = "Gold Bracelet", 		 ['weight'] = 100, 		["type"] = "item", 		["image"] = "goldbracelet.png", 			["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = ""},
-["golddiamondring"] 			= {["name"] = "golddiamondring", 			["label"] = "Gold Diamond Ring", 	 ['weight'] = 100, 		["type"] = "item", 		["image"] = "golddiamondring.png", 			["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = ""},
-["goldring"] 				    = {["name"] = "goldring", 			    	["label"] = "Golden Ring", 		     ['weight'] = 100, 		["type"] = "item", 		["image"] = "goldring.png", 			    ["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = ""},
-["rubyring"] 				    = {["name"] = "rubyring", 			    	["label"] = "Ruby Ring", 		     ['weight'] = 100, 		["type"] = "item", 		["image"] = "rubyring.png", 			    ["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = ""},
-["toycar"] 				     	= {["name"] = "toycar", 			    	["label"] = "Toy Car", 		     	 ['weight'] = 100, 		["type"] = "item", 		["image"] = "toycar.png", 			    	["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = ""},
-["metaldetector"] 				= {["name"] = "metaldetector", 			    ["label"] = "Metal Detector", 		 ['weight'] = 2500, 		["type"] = "item", 		["image"] = "metaldetector.png", 		["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = ""},
+["diamondring"] 				= {["name"] = "diamondring", 			    ["label"] = "Diamond Ring", 		 ['weight'] = 100, 		["type"] = "item", 		["image"] = "diamondring.png", 			    ["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = "Pretty sure some poor kid made this"},
+["goldbracelet"] 				= {["name"] = "goldbracelet", 			    ["label"] = "Gold Bracelet", 		 ['weight'] = 100, 		["type"] = "item", 		["image"] = "goldbracelet.png", 			["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = "Is this bracelet real gold?"},
+["golddiamondring"] 			= {["name"] = "golddiamondring", 			["label"] = "Gold Diamond Ring", 	 ['weight'] = 100, 		["type"] = "item", 		["image"] = "golddiamondring.png", 			["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = "It's a gold ring with a diamond?"},
+["goldring"] 				    = {["name"] = "goldring", 			    	["label"] = "Golden Ring", 		     ['weight'] = 100, 		["type"] = "item", 		["image"] = "goldring.png", 			    ["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = "My precious"},
+["rubyring"] 				    = {["name"] = "rubyring", 			    	["label"] = "Ruby Ring", 		     ['weight'] = 100, 		["type"] = "item", 		["image"] = "rubyring.png", 			    ["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = "It is a ruby, not a rubix"},
+["toycar"] 				     	= {["name"] = "toycar", 			    	["label"] = "Toy Car", 		     	 ['weight'] = 100, 		["type"] = "item", 		["image"] = "toycar.png", 			    	["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = "Don't put it in odd places"},
+["metaldetector"] 				= {["name"] = "metaldetector", 			    ["label"] = "Metal Detector", 		 ['weight'] = 2500, 		["type"] = "item", 		["image"] = "metaldetector.png", 		["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,                     ["description"] = "Maybe it can find things"},
 ```
 
 `ox_inventory/data/items.lua`
@@ -84,7 +84,7 @@ Add items to your inventory you use.
 		weight = 100,
 		stack = true,
 		close = true,
-		description = "Ring of gold",
+		description = "My precious",
 		client = {
 			image = "goldring.png",
 		}
