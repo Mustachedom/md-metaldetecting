@@ -159,7 +159,7 @@ local metaldetectsales = {}
 
 for k, v in pairs (Config.LootSell) do 
 	metaldetectsales[#metaldetectsales + 1] = {
-				   icon = " "..Config.InvWeblink..QBCore.Shared.Items[v.name].image,
+				   icon = "nui://"..Config.InvWeblink..QBCore.Shared.Items[v.name].image,
 					title = v.label,
 					event = "md-metaldetecting:client:sellloot",
 					args = {
