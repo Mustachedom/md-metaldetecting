@@ -28,7 +28,7 @@ Sure! Here's your part rewritten with more sarcasm and a polished tone:
 ### **Step 1:** PlayerData  
 - Add this line to `qbx_core/server/player.lua` (around line 612) inside your existing player data:  
 ```lua
-PlayerData.metadata.metaldetecting = PlayerData.metadata.metaldetecting or 0
+    playerData.metadata.metaldetecting = playerData.metadata.metaldetecting or 0
 ```  
 - (Yes, I know. This is the kind of thrilling coding adventure you signed up for!)
 
