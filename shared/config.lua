@@ -2,7 +2,7 @@ Config = {}
 Config.OxTarget = false -- true if you use ox target
 Config.MetalDetectShop = vector4(-1113.45, -1689.03, 4.38, 150.53) -- where you buy a metal detector or sell loot founs
 Config.Pricefordetector = 500 -- how much you pay for the metal detector
-Config.InvWeblink = "nui://ps-inventory/html/images/"
+Config.InvWeblink = "nui://qb-inventory/html/images/"
 Config.clumpwash = { -- place to wash out clumps 
 
 vector3(-1247.79, -1542.34, 4.3),
@@ -59,18 +59,17 @@ Config.Loot = { -- more common chance
 'metalscrap',
 'iron',
 'copper',
-
 }
 Config.LootSell = { -- items to be able to be sold at the sales point
-    {name = "bobbypin", label = 'Bobby Pin', price = 25},
-    {name = "bottlecap",label = 'Bottle Cap', price = 25},
+    {name = "bobbypin", label = 'Bobby Pin', price = 2},
+    {name = "bottlecap",label = 'Bottle Cap', price = 5},
     {name = "corno", label = 'Corno', price = 25},
     {name = "toycar", label = 'Toy Car', price = 25},
-    {name = "goldring", label = 'Gold Ring', price = 25},
-    {name = "1792coin", label = '1792 Coin', price = 25},
-    {name = "1797coin", label = '1797 Coin', price = 25},
-    {name = "diamondring", label = 'Diamond Ring', price = 25},
-    {name = "golddiamondring", label = 'Gold Diamond Bracelet', price = 25},
-    {name = "goldbracelet", label = 'Gold Bracelet', price = 25},
-    {name = "rubyring", label = 'Ruby Ring', price = 25}, 
+    {name = "goldring", label = 'Gold Ring', price = 175},
+    {name = "1792coin", label = '1792 Coin', price = 100},
+    {name = "1797coin", label = '1797 Coin', price = 100},
+    {name = "diamondring", label = 'Diamond Ring', price = 300},
+    {name = "golddiamondring", label = 'Gold Diamond Bracelet', price = 300},
+    {name = "goldbracelet", label = 'Gold Bracelet', price = 350},
+    {name = "rubyring", label = 'Ruby Ring', price = 250}, 
 }
