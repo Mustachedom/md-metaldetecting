@@ -283,18 +283,19 @@ CreateThread(function()
 		})
 	end
 	end
+
 	local metaldetectsales = {}
 
 	for k, v in pairs (Config.LootSell) do 
 		metaldetectsales[#metaldetectsales + 1] = {
-					   icon = Config.InvWeblink..QBCore.Shared.Items[v.name].image,
-						title = v.label,
-						event = "md-metaldetecting:client:sellloot",
-						args = {
-							item = v.name,
-							cost = v.price,
+						   icon = Config.InvWeblink..QBCore.Shared.Items[v.name].image,
+							title = v.label,
+							event = "md-metaldetecting:client:sellloot",
+							args = {
+								item = v.name,
+								cost = v.price,
+							}
 						}
-					}
 		lib.registerContext({id = 'metaldetectsales',title = "Metal Detect Sales", options = metaldetectsales})
 	end
 		metaldetectingblip = AddBlipForCoord(Config.MetalDetectShop)
@@ -306,44 +307,56 @@ CreateThread(function()
 		BeginTextCommandSetBlipName("STRING")
 		AddTextComponentSubstringPlayerName("Metal Detecting Shop")
 		EndTextCommandSetBlipName(metaldetectingblip)
-		lib.requestModel("s_m_m_trucker_01", 500)
-		local current = "s_m_m_trucker_01"
-		metaldetectsales = CreatePed(0, current,Config.MetalDetectShop.x,Config.MetalDetectShop.y,Config.MetalDetectShop.z-1, false, false)
+	
+		-- Improved model loading
+		local modelHash = GetHashKey("s_m_m_trucker_01")
+		RequestModel(modelHash)
+		while not HasModelLoaded(modelHash) do
+			Wait(10)
+		end
+	
+		metaldetectsales = CreatePed(0, modelHash, Config.MetalDetectShop.x, Config.MetalDetectShop.y, Config.MetalDetectShop.z-1, 50.0, false, false)
 		SetEntityHeading(metaldetectsales, 50.0)
 		FreezeEntityPosition(metaldetectsales, true)
 		SetEntityInvincible(metaldetectsales, true)
+		SetBlockingOfNonTemporaryEvents(metaldetectsales, true)
+		SetPedDiesWhenInjured(metaldetectsales, false)
+		SetPedCanPlayAmbientAnims(metaldetectsales, true)
+		SetPedCanRagdollFromPlayerImpact(metaldetectsales, false)
+		SetEntityAsMissionEntity(metaldetectsales, true, true)
+	
 		exports['qb-target']:AddTargetEntity(metaldetectsales, {
-						options = {
-							{
-								type = "client",
-								label = "Buy Metal Detector",
-								icon = "fas fa-eye",
-								action = function()
-									TriggerEvent('animations:client:EmoteCommandStart', {"uncuff"})
-									QBCore.Functions.Progressbar("drink_something", "Buying A Metal Detector", 4000, false, true, {
-									disableMovement = true,
-									disableCarMovement = false,
-									disableMouse = false,
-									disableCombat = true,
-									disableInventory = true,
-									}, {}, {}, {}, function()-- Done
-									TriggerServerEvent("md-metaldetecting:server:buydetector")
-									ClearPedTasks(PlayerPedId())
-									end)
-								end	
+							options = {
+								{
+									type = "client",
+									label = "Buy Metal Detector",
+									icon = "fas fa-eye",
+									action = function()
+										TriggerEvent('animations:client:EmoteCommandStart', {"uncuff"})
+										QBCore.Functions.Progressbar("drink_something", "Buying A Metal Detector", 4000, false, true, {
+										disableMovement = true,
+										disableCarMovement = false,
+										disableMouse = false,
+										disableCombat = true,
+										disableInventory = true,
+										}, {}, {}, {}, function()-- Done
+											TriggerServerEvent("md-metaldetecting:server:buydetector")
+										ClearPedTasks(PlayerPedId())
+										end)
+									end	
+								},
+								{
+									type = "client",
+									label = "Sell Loot",
+									icon = "fas fa-eye",
+									action = function()
+										lib.showContext('metaldetectsales')
+									end
+								},
 							},
-							{
-								type = "client",
-								label = "Sell Loot",
-								icon = "fas fa-eye",
-								action = function()
-									lib.showContext('metaldetectsales')
-								end
-							},
-						},
-						distance = 2.0
-					})	
-end)	
+							distance = 2.0
+						})
+	end)
 
 RegisterNetEvent("md-metaldetecting:client:sellloot", function(data) local dialog
 	local price = data.cost 
