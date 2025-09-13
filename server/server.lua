@@ -59,7 +59,7 @@ RegisterNetEvent('md-metaldetecting:server:stopDetecting', function()
 		TriggerClientEvent('md-metaldetect:client:stopDetecting', src)
 	end
 end)
-
+ps.versionCheck('md-metaldetecting', 'https://raw.githubusercontent.com/Mustachedom/md-metaldetecting/refs/heads/ps_lib/version.txt', 'https://github.com/Mustachedom/md-metaldetecting/tree/ps_lib')
 RegisterServerEvent('md-metaldetecting:server:giveloot', function(ground)
 	local src = source
     local identifier = ps.getIdentifier(src)

@@ -75,7 +75,5 @@ function minigame()
 		until successes or time == 100
 	elseif minigametype == 'none' then
 		return true
-	else
-		print"^1 SCRIPT ERROR: Md-Drugs set your minigame with one of the options!"
 	end
 end
