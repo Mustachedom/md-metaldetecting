@@ -1,0 +1,16 @@
+```lua
+['1792coin'] 				    = {name = "1792coin", 			    	label = "1792 Coin", 		     weight = 100, 		type = "item", 		image = "1792coin.png", 			unique = false, 	useable = true,     shouldClose = true,               description = "Even older"},
+['1797coin'] 				    = {name = "1797coin", 			    	label = "1797 Coin", 		     weight = 100, 		type = "item", 		image = "1797coin.png", 			unique = false, 	useable = true,     shouldClose = true,               description = "Dat's old"},
+bobbypin 				    = {name = "bobbypin", 			    	label = "Bobby Pin", 		     weight = 100, 		type = "item", 		image = "bobbypin.png", 			    unique = false, 	useable = true, 	shouldClose = true,	                  description = "Put your hair up"},
+bottlecap 				    = {name = "bottlecap", 			    	label = "Bottle Cap", 		     weight = 100, 		type = "item", 		image = "bottlecap.png", 			    unique = false, 	useable = true, 	shouldClose = true,	                  description = "Stepped on a pop top"},
+clump 				    	= {name = "clump", 			    		label = "Clump", 		     	 weight = 100, 		type = "item", 		image = "clump.png", 			    	unique = false, 	useable = true, 	shouldClose = true,	                  description = "Not a turd"},
+corno 				     	= {name = "corno", 			    		label = "Corno", 		     	 weight = 100, 		type = "item", 		image = "corno.png", 			    	unique = false, 	useable = true, 	shouldClose = true,	                  description = ""},
+diamondring 				= {name = "diamondring", 			    label = "Diamond Ring", 		 weight = 100, 		type = "item", 		image = "diamondring.png", 			    unique = false, 	useable = true, 	shouldClose = true,	                  description = "Pretty sure some poor kid made this"},
+goldbracelet 				= {name = "goldbracelet", 			    label = "Gold Bracelet", 		 weight = 100, 		type = "item", 		image = "goldbracelet.png", 			unique = false, 	useable = true, 	shouldClose = true,	                  description = "Is this bracelet real gold?"},
+golddiamondring 			= {name = "golddiamondring", 			label = "Gold Diamond Ring", 	 weight = 100, 		type = "item", 		image = "golddiamondring.png", 			unique = false, 	useable = true, 	shouldClose = true,	                  description = "It's a gold ring with a diamond?"},
+goldring 				    = {name = "goldring", 			    	label = "Golden Ring", 		     weight = 100, 		type = "item", 		image = "goldring.png", 			    unique = false, 	useable = true, 	shouldClose = true,	                  description = "My precious"},
+rubyring 				    = {name = "rubyring", 			    	label = "Ruby Ring", 		     weight = 100, 		type = "item", 		image = "rubyring.png", 			    unique = false, 	useable = true, 	shouldClose = true,	                  description = "It is a ruby, not a rubix"},
+toycar 				     	= {name = "toycar", 			    	label = "Toy Car", 		     	 weight = 100, 		type = "item", 		image = "toycar.png", 			    	unique = false, 	useable = true, 	shouldClose = true,	                  description = "Don't put it in odd places"},
+metaldetector 				= {name = "metaldetector", 			    label = "Metal Detector", 		 weight = 2500, 		type = "item", 		image = "metaldetector.png", 		unique = false, 	useable = true, 	shouldClose = true,	                  description = "Maybe it can find things"},
+```
+
