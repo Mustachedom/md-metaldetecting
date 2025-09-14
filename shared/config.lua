@@ -1,6 +1,6 @@
 Config = {}
 ps = exports.ps_lib:init()
-ps.loadLangs('uwu')
+ps.loadLangs('en')
 
 Config.Pricefordetector = 500 -- how much you pay for the metal detector
 
