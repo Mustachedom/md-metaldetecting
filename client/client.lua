@@ -1,7 +1,6 @@
-local QBCore = exports['qb-core']:GetCoreObject()
 local detecting = false
 local metalDetector = nil
-local allowlist = {1333033863, -1942898710, -1595148316,587194674,509508168, -1286696947,510490462, 1144315879, -461750719, 2128369009, 951832588, -1885547121  }
+local allowlist = {1288448767,1333033863, -1942898710, -1595148316,587194674,509508168, -1286696947,510490462, 1144315879, -461750719, 2128369009, 951832588, -1885547121  }
 
 local function GetGroundHash()
 	local coords = GetEntityCoords(PlayerPedId())
@@ -37,7 +36,7 @@ local function find(ground)
 		return false
 	end
 	SetEntityVisible(metalDetector, false, 0)
-	if not ps.progressbar('Digging up item', 8000, 'garden') then
+	if not ps.progressbar(ps.lang('Progress.dig'), 8000, 'garden') then
 		SetEntityVisible(metalDetector, true, 0)
 		return false
 	end
@@ -53,7 +52,7 @@ RegisterNetEvent("md-metaldetect:client:startDetecting",function(time)
 		return
 	end
 	if detecting then
-		ps.notify(ps.lang('Fails.alreadyFishing'), 'error')
+		ps.notify(ps.lang('Fails.alreadyDetecting'), 'error')
 		return
 	end
 	detecting = true
@@ -82,7 +81,7 @@ RegisterNetEvent("md-metaldetect:client:startDetecting",function(time)
 		if not groundBool then
 			goto continue
 		end
-		ps.notify('You Found Something!', 'success')
+		ps.notify(ps.lang('Success.foundSomething'), 'success')
 		Wait(1000)
 		if not find(ground) then
 			goto continue
@@ -118,12 +117,13 @@ local function initZones()
 		TaskStartScenarioInPlace(ped, "WORLD_HUMAN_STAND_IMPATIENT", 0, true)
 		ps.entityTarget(ped, {
 			{
-				label = 'Buy Metal Detector - $'..Config.Pricefordetector,
-				icon = 'fas fa-shopping-basket',
+				label = ps.lang('Targets.shops.targ1.label', Config.Pricefordetector),
+				icon = ps.lang('Targets.shops.targ1.icon'),
 				action = function()
-					local type = ps.input('Payment Type', {
-						{type = 'select', options = {{label = 'Cash', value = 'cash'}, {label = 'Bank', value = 'bank'}}, title = 'Choose Your Payment Method', required = true},
+					local type = ps.input(ps.lang('Targets.shops.targ1.input.header'), {
+						{type = 'select', options = {{label = ps.lang('Info.cash'), value = 'cash'}, {label = ps.lang('Info.bank'), value = 'bank'}}, title = ps.lang('Targets.shops.targ1.input.title'), required = true},
 					})
+					if not type then return end
 					if type and not type[1] then
 						return
 					end
@@ -131,8 +131,8 @@ local function initZones()
 				end
 			},
 			{
-				label = 'Open Shop',
-				icon = 'fas fa-shopping-basket',
+				label = ps.lang('Targets.shops.targ2.label'),
+				icon = ps.lang('Targets.shops.targ2.icon'),
 				action = function()
 					local loot = ps.callback('md-metaldetecting:server:getLoot', k)
 					if not loot then
@@ -140,7 +140,7 @@ local function initZones()
 					end
 					local menu = {}
 					menu[#menu+1] = {
-						title = 'Sell All',
+						title = ps.lang('Targets.shops.targ2.sellAll'),
 						action = function()
 							TriggerServerEvent('md-metaldetecting:server:sellLoot', k, 'all')
 						end
@@ -149,7 +149,7 @@ local function initZones()
 						if ps.hasItem(item) then
 							menu[#menu+1] = {
 								title = ps.getLabel(item),
-								description = '$'..price .. ' each',
+								description = ps.lang('Targets.shops.targ2.menuDescription', price),
 								icon = ps.getImage(item),
 								action = function()
 									TriggerServerEvent('md-metaldetecting:server:sellLoot', k, item)
@@ -157,7 +157,7 @@ local function initZones()
 							}
 						end
 					end
-					ps.menu('Metal Detector Shop', 'metal Detector Shop', menu)
+					ps.menu(ps.lang('Targets.shops.targ2.header'), ps.lang('Targets.shops.targ2.header'), menu)
 				end
 			}
 		})
@@ -177,13 +177,13 @@ local function initZones()
 		end
 		ps.boxTarget('metalWash'..k, v.loc, {length = 1.0, width = 1.0, height = 1.0}, {
 			{
-				label = 'Wash Clump',
-				icon = 'fas fa-water',
+				label = ps.lang('Targets.wash.label'),
+				icon = ps.lang('Targets.wash.icon'),
 				action = function()
 					if not minigame() then
 						return
 					end
-					if not ps.progressbar('Washing Clump', 10000, 'water') then
+					if not ps.progressbar(ps.lang('Progress.wash'), 10000, 'uncuff') then
 						return
 					end
 					TriggerServerEvent('md-metaldetecting:server:washClump',k)

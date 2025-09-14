@@ -4,6 +4,7 @@ description "Metal Detecting"
 fx_version "cerulean"
 game "gta5"
 version '1.9.9'
+
 client_scripts {
 	'client/**.lua',
 }
@@ -16,6 +17,10 @@ server_scripts {
 shared_scripts {
 	'@ox_lib/init.lua',
 	'shared/**.lua',
+}
+
+files {
+	'locales/**.lua',
 }
 
 lua54 'yes'
