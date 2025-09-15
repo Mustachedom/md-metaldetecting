@@ -15,6 +15,11 @@ Lang.Fails = {
     noClump = 'Nemáš žádné shluky k omytí!',
 }
 
+Lang.DrawText = {
+    success = 'Skenuji kov pod tebou',
+    fail = 'Nemůžeš skenovat tento materiál',
+}
+
 Lang.Success = {
     foundSomething = 'Našel jsi něco!',
     levelUp = 'Dosáhl jsi úrovně %s!',

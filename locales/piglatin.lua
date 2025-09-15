@@ -26,6 +26,10 @@ Lang.Progress = {
     dig = 'Igginday Upway Ouryay indingsfay!',
     wash = 'Ashingway Ouryay lumpsclay!',
 }
+Lang.DrawText = {
+    success = "Anningscay Orfay Etalsmay Underay Ouyay",
+    fail = "Antcay Anscay Isthay Aterialmay",
+}
 
 Lang.Targets = {
     shops = {

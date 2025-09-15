@@ -26,7 +26,10 @@ Lang.Progress = {
     dig = 'Buluntularınızı kazıyor!',
     wash = 'Kütlelerinizi yıkıyor!',
 }
-
+Lang.DrawText = {
+    success = "Altındaki metalleri tarıyor",
+    fail = "Bu materyal taranamıyor",
+}
 Lang.Targets = {
     shops = {
         targ1 = {

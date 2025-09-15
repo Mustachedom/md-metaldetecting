@@ -1,6 +1,7 @@
 local detecting = false
 local metalDetector = nil
 local allowlist = {1288448767,1333033863, -1942898710, -1595148316,587194674,509508168, -1286696947,510490462, 1144315879, -461750719, 2128369009, 951832588, -1885547121  }
+local search, displayed = '', ''
 
 local function GetGroundHash()
 	local coords = GetEntityCoords(PlayerPedId())
@@ -22,6 +23,12 @@ local function allowedGround()
 	return ps.tableContains(allowlist, ground) or false, ground
 end
 
+local function hideText()
+	ps.hideText()
+	displayed = ''
+	search = ''
+end
+
 local function stopDetecting()
 	DetachEntity(metalDetector, true, true)
 	DeleteObject(metalDetector)
@@ -29,20 +36,38 @@ local function stopDetecting()
 	metalDetector = nil
 	ClearPedTasks(PlayerPedId())
 	TriggerServerEvent('md-metaldetecting:server:stopDetecting')
+	hideText()
 end
 
 local function find(ground)
+	ps.hideText()
 	if not minigame() then
+		hideText()
 		return false
 	end
 	SetEntityVisible(metalDetector, false, 0)
 	if not ps.progressbar(ps.lang('Progress.dig'), 8000, 'garden') then
+		hideText()
 		SetEntityVisible(metalDetector, true, 0)
 		return false
 	end
 	SetEntityVisible(metalDetector, true, 0)
 	TriggerServerEvent('md-metaldetecting:server:giveloot', ground)
+	hideText()
 	return true
+end
+
+local function searchText(ground)
+	if not Config.ShowDrawText then return end 
+	if ground then
+		search = ps.lang('DrawText.success')
+	else
+		search = ps.lang('DrawText.fail')
+	end
+	if search ~= displayed then
+		displayed = search
+		ps.drawText(displayed)
+	end
 end
 
 RegisterNetEvent("md-metaldetect:client:startDetecting",function(time)
@@ -61,9 +86,10 @@ RegisterNetEvent("md-metaldetect:client:startDetecting",function(time)
 		local timer = time
 		local groundBool, ground
 		repeat
+			groundBool, ground = allowedGround()
+			searchText(groundBool)
 			Wait(1000)
 			timer = timer - 1
-			groundBool, ground = allowedGround()
 		until timer == 0 or not detecting or not DoesEntityExist(metalDetector) or IsPedInAnyVehicle(PlayerPedId(), false) or not groundBool
 		if not detecting then
 			stopDetecting()
@@ -79,8 +105,10 @@ RegisterNetEvent("md-metaldetect:client:startDetecting",function(time)
 			return
 		end
 		if not groundBool then
+			searchText(groundBool)
 			goto continue
 		end
+		PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
 		ps.notify(ps.lang('Success.foundSomething'), 'success')
 		Wait(1000)
 		if not find(ground) then
@@ -194,3 +222,10 @@ local function initZones()
 end
 
 initZones()
+
+AddEventHandler('onResourceStop', function(resourceName)
+	if GetCurrentResourceName() ~= resourceName then return end
+	if DoesEntityExist(metalDetector) then
+		DeleteEntity(metalDetector)
+	end
+end)

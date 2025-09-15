@@ -26,7 +26,10 @@ Lang.Progress = {
     dig = 'Diggy diggy... Gungan work hard!',
     wash = 'Splash splash... Gloop go clean!',
 }
-
+Lang.DrawText = {
+    success = 'MESA GONN FINE THING',
+    fail = 'MESA NO FINE THING',
+}
 Lang.Targets = {
     shops = {
         targ1 = {

@@ -26,7 +26,10 @@ Lang.Progress = {
     dig = 'DIGGIN’ LIKE A RAT IN A BARREL! THE TREASURE BE NEAR!',
     wash = 'SCRUBBIN’ THE MUD OFF! THE SEA’S GIVIN’ UP HER SECRETS!',
 }
-
+Lang.DrawText = {
+    success = "Arrr, Searchin’ fer shiny metals below yer boots!",
+    fail = "Nay, this be no scan-worthy stuff, matey!",
+}
 Lang.Targets = {
     shops = {
         targ1 = {

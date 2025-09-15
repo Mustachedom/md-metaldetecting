@@ -71,6 +71,7 @@ ps.registerCommand('metaldetectLevel', {
 	end
 	ps.notify(src, ps.lang('Info.level', cachedSQL[identifier].level, cachedSQL[identifier].xp, levelUpAmount), 'success')
 end)
+
 ps.createUseable("metaldetector", function(source, item)
 	local src = source
 	local identifier = ps.getIdentifier(src)
@@ -112,6 +113,7 @@ RegisterServerEvent('md-metaldetecting:server:giveloot', function(ground)
 	else
 		item = loot.common[math.random(1, #loot.common)]
 	end
+
 	local pData = cachedSQL[identifier]
 	if ps.addItem(src, item, 1) then
 		pData.xp = pData.xp + 1
@@ -183,7 +185,7 @@ RegisterNetEvent('md-metaldetecting:server:washClump', function(loc)
 	end
 	local maths = math.random(1,100)
 	local item = nil
-	if maths <= rareChance then
+	if maths <= math.floor(rareChance / 2) then
 		item = loot.rare[math.random(1, #loot.rare)]
 	else
 		item = loot.common[math.random(1, #loot.common)]

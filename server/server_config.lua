@@ -23,7 +23,7 @@ locations = {
     }
 }
 
-levels = { -- time in seconds
+levels = { -- Level | time in seconds
     [0] = 55,
     [1] = 50,
     [2] = 45,

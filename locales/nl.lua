@@ -27,6 +27,10 @@ Lang.Progress = {
     wash = 'Bezig met wassen van je klontje!',
 }
 
+Lang.DrawText = {
+    success = 'Scannen naar metalen onder u',
+    fail = 'Kan dit materiaal niet scannen'
+}
 Lang.Targets = {
     shops = {
         targ1 = {

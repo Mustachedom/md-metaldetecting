@@ -26,6 +26,10 @@ Lang.Progress = {
     dig = '¡Excavando tus hallazgos!',
     wash = '¡Lavando tu conglomerado!',
 }
+Lang.DrawText = {
+    success = 'Escaneando metales debajo de ti',
+    fail = 'No se puede escanear este material',
+}
 
 Lang.Targets = {
     shops = {

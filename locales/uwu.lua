@@ -26,7 +26,10 @@ Lang.Progress = {
     dig = ' diggy-diggy~ *bunny hops with spade* … so much dirt… so much… *sniff* … magic… ',
     wash = ' splash-splash~ *puppy eyes* … de water’s singing… de cwump’s dreamin’… *whispers* … it’s gonna be gowld… ',
 }
-
+Lang.DrawText = {
+   success = "Scanny-wanny fow metaws undew you >w<",
+    fail = "Canny scan dis matewiaw ( つ﹏⊂ )",
+}
 Lang.Targets = {
     shops = {
         targ1 = {

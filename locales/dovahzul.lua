@@ -22,8 +22,12 @@ Lang.Success = {
     clumpWash = 'VOLUN! %s do volun.',
 }
 
+Lang.DrawText = {
+    success = 'FUS... RO... DAH... ZYLAAN.',
+    fail    = 'VOLUN... ZOUN... LOK.',
+}
 Lang.Progress = {
-    dig = 'FUS... RO... DAH... ZYLAAN.',
+    dig  = 'FUS... RO... DAH... ZYLAAN.',
     wash = 'VOLUN... ZOUN... LOK.',
 }
 

@@ -29,7 +29,10 @@ Lang.Progress = {
     wash = '💧 WASHING… THE WATER’S GLOWING… YOU CAN FEEL IT COMING… 🔮',
 }
 
-
+Lang.DrawText = {
+    success = 'SCANNING FOR METALS UNDER YOU — STAY TUNED! 📡',
+    fail = '🚫 CAN’T SCAN THIS MATERIAL — SWITCH THE FREQUENCY!',
+}
 Lang.Targets = {
     shops = {
         targ1 = {

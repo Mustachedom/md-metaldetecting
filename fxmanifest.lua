@@ -3,7 +3,7 @@ author "Bostra & Mustache_dom"
 description "Metal Detecting"
 fx_version "cerulean"
 game "gta5"
-version '1.9.9'
+version '2.0.0'
 
 client_scripts {
 	'client/**.lua',

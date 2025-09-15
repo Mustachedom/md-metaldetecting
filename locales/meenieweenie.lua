@@ -26,7 +26,10 @@ Lang.Progress = {
     dig = 'Digging. Slowly. Like always.',
     wash = 'Washing. With the enthusiasm of a corpse.',
 }
-
+Lang.DrawText = {
+    success = 'Good Material, Unlike Your Comedy',
+    fail = 'Youre So Smart Scanning The Wrong Type Of Ground'
+}
 Lang.Targets = {
     shops = {
         targ1 = {

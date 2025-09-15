@@ -26,7 +26,10 @@ Lang.Progress = {
     dig = 'Creusant vos découvertes !',
     wash = 'Lavant votre amas !',
 }
-
+Lang.DrawText = {
+    success = 'Analyse des métaux sous vous',
+    fail = 'Impossible d\'analyser ce matériau',
+}
 Lang.Targets = {
     shops = {
         targ1 = {

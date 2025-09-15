@@ -7,7 +7,7 @@
   <br>
   <a href="https://discord.gg/sAMzrB4DDx"><strong>Join Mustache Scripts Discord</strong></a>
 </div>
----
+
 
 ## 📦 Dependencies
 
@@ -16,7 +16,7 @@
 | `ps_lib` | [GitHub - Project-Sloth/ps_lib](https://github.com/Project-Sloth/ps_lib) |
 | `Read`   | [Read Docs](https://letters.hookedonphonics.com/us/read-guaranteed-G14.html) |
 
-> ⚠️ Ensure all dependencies are installed, up to date, and ensure **BEFORE** this script, before proceeding.
+> ⚠️ Ensure all dependencies are installed, up to date, and ensured **BEFORE** this script, before proceeding.
 
 
 ## 🛠️ Installation

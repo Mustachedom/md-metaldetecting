@@ -26,7 +26,10 @@ Lang.Progress = {
     dig = 'GRRR… GRRR… GRRR…',
     wash = 'GRRR… SPLASH… GRRR…',
 }
-
+Lang.DrawText = {
+    success = "Rrraaaghhh! Hurrhhhnn metals uuurrr underrr youuu!",
+    fail = "Hnnnnnnn! Raaaawrrghh nooo scaaan dissss materialll!",
+}
 Lang.Targets = {
     shops = {
         targ1 = {

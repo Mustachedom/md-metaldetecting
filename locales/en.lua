@@ -6,6 +6,12 @@ Lang.Info = {
     bank = 'Bank',
     level = 'Level:  | %s | XP: %s / %s',
 }
+
+Lang.DrawText = {
+    success = 'Scanning For Metals Under You',
+    fail = 'Cant Scan This Material',
+}
+
 Lang.Fails = {
     inVehicle = 'You cannot use the metal detector in a vehicle!',
     alreadyDetecting = 'You are already using the metal detector!',

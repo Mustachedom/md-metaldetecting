@@ -21,6 +21,10 @@ Lang.Success = {
     sold = 'Du hast %s Items für ' .. Lang.Info.currency .. '%s verkauft.',
     clumpWash = 'Du hast einen Klumpen gewaschen und hast %s erhalten.',
 }
+Lang.DrawText = {
+    success = 'Scanne nach Metallen unter dir',
+    fail = 'Kann dieses Material nicht scannen',
+}
 
 Lang.Progress = {
     dig = 'Grabe deine Funde aus!',

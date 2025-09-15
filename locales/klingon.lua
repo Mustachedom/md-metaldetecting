@@ -27,6 +27,10 @@ Lang.Progress = {
     wash = 'Duj… qIppu’… jaj…',
 }
 
+Lang.DrawText = {
+    success = 'QeD… yItlh… Quch…',
+    fail = 'Duj… qIppu’… jaj…',
+}
 Lang.Targets = {
     shops = {
         targ1 = {
