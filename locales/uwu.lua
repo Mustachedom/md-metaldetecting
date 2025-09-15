@@ -44,7 +44,7 @@ Lang.Targets = {
             label = ' seww itemz uwu ',
             icon = 'fas fa-shopping-basket',
             sellAll = ' seww aww da thangs!! ',
-            menuDescription = '$%s each — but i’ww give u 50% off if u say “pwease” uwu ',
+            menuDescription = '$ %s each — but i’ww give u 50% off if u say “pwease” uwu ',
             header = ' metaw detektow sawes!! 🐰💎🎀 ',
         }
     },
