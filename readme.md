@@ -12,6 +12,9 @@
  - metal detect throughout sand and grass
  - level system for faster detecting
  - sell your loot 
+
+## Preview Video 
+[youtube](https://www.youtube.com/watch?v=WQPanxUeMDM)
 ## 📦 Dependencies
 
 | Dependency | Link |
