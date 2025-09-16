@@ -1,6 +1,6 @@
 Config = {}
 ps = exports.ps_lib:init()
-ps.loadLangs('en')
+ps.loadLangs('uwu')
 
 Config.Pricefordetector = 500 -- how much you pay for the metal detector
 Config.ShowDrawText = true -- shows draw text showing you are on the correct ground or not while metal detecting
@@ -15,5 +15,6 @@ Config.Minigames = {
     blrapidlines =  {amount = 1,     difficulty = 50, numberofline = 3},
     blcircleshake = {amount = 1,     difficulty = 50, stages = 3},
 }
+
 
 Config.minigametype = 'ox' -- look above for options or choose none if you dont want any minigames
