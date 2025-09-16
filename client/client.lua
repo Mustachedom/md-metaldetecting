@@ -1,227 +1,231 @@
-local QBCore = exports['qb-core']:GetCoreObject()
-local metal = nil
+local detecting = false
+local metalDetector = nil
+local allowlist = {1288448767,1333033863, -1942898710, -1595148316,587194674,509508168, -1286696947,510490462, 1144315879, -461750719, 2128369009, 951832588, -1885547121  }
+local search, displayed = '', ''
 
-local allowlist = {1333033863, -1942898710, -1595148316,587194674,509508168, -1286696947,510490462, 1144315879, -461750719, 2128369009, 951832588, -1885547121  }
-RegisterNetEvent("md-metaldetect:client:metaldetect")
-AddEventHandler("md-metaldetect:client:metaldetect", function() 
-CreateThread(function()
-while metal do
-	local metalrep = QBCore.Functions.GetPlayerData().metadata["metaldetecting"]
-	for k, v in pairs (allowlist) do
-		if GetGroundHash() == v then	
-			if metalrep <= Config.lvl1 then
-				Wait(Config.lvl1Wait)
-				metaldetect()
-			elseif metalrep <= Config.lvl2 then
-				Wait(Config.lvl2Wait)
-				metaldetect()
-			elseif metalrep <= Config.lvl3 then
-				Wait(Config.lvl3Wait)
-				metaldetect()
-			elseif metalrep <= Config.lvl4 then
-				Wait(Config.lvl4Wait)
-				metaldetect()
-			elseif metalrep <= Config.lvl5 then
-				Wait(Config.lvl5Wait)
-				metaldetect()
-			elseif metalrep <= Config.lvl6 then
-				Wait(Config.lvl6Wait)
-				metaldetect()
-			elseif metalrep <= Config.lvl7 then
-				Wait(Config.lvl7Wait)
-				metaldetect()
-			elseif metalrep <= Config.lvl8 then
-				Wait(Config.lvl8Wait)
-				metaldetect()
-			elseif metalrep <= Config.lvl9 then
-				Wait(Config.lvl9Wait)
-				metaldetect()
-			elseif metalrep <= Config.lvl10 then
-				Wait(Config.lvl10Wait)
-				metaldetect()
-			end
-		else
-		Wait(100)
-		end
-	end
-end
-end)
-end)
-
-
-function GetGroundHash()
+local function GetGroundHash()
 	local coords = GetEntityCoords(PlayerPedId())
 	local num = StartShapeTestCapsule(coords.x,coords.y,coords.z+4,coords.x,coords.y,coords.z-2.0, 1,1,PlayerPedId(),7)
 	local arg1, arg2, arg3, arg4, arg5 = GetShapeTestResultEx(num)
 	return arg5
 end
 
-RegisterNetEvent("md-metaldetect:client:startdetecting")
-AddEventHandler("md-metaldetect:client:startdetecting", function()
-	if metal then
-		QBCore.Functions.Notify("You Put Your Pole Away")
-		DetachEntity(metal, true, true)
-		DeleteObject(metal)
-		metal = nil
-		ClearPedTasks(PlayerPedId())
-	else
-		local pos = GetEntityCoords(PlayerPedId(), true)
-		RequestModel("bostra_detector")
-		while not HasModelLoaded("bostra_detector") do
-			Wait(0)
-		end
-		local object = CreateObject("bostra_detector", pos.x, pos.y, pos.z, true, true, true)
-		AttachEntityToEntity(object, PlayerPedId(), GetPedBoneIndex(PlayerPedId(), 57005),  0.8, 0.06, 0.1, 5.0, -99.0, 56.0, true, true, false, true, 1, true)
-		metal = object
-		TriggerEvent("md-metaldetect:client:metaldetect")
+local function createDetector()
+	local pos = GetEntityCoords(PlayerPedId(), true)
+	ps.requestModel("bostra_detector")
+	metalDetector = CreateObject("bostra_detector", pos.x, pos.y, pos.z, true, true, true)
+	AttachEntityToEntity(metalDetector, PlayerPedId(), GetPedBoneIndex(PlayerPedId(), 57005),  0.8, 0.06, 0.1, 5.0, -99.0, 56.0, true, true, false, true, 1, true)
+	detecting = true
+end
+
+local function allowedGround()
+	local ground = GetGroundHash()
+	return ps.tableContains(allowlist, ground) or false, ground
+end
+
+local function hideText()
+	ps.hideText()
+	displayed = ''
+	search = ''
+end
+
+local function stopDetecting()
+	DetachEntity(metalDetector, true, true)
+	DeleteObject(metalDetector)
+	detecting = false
+	metalDetector = nil
+	ClearPedTasks(PlayerPedId())
+	TriggerServerEvent('md-metaldetecting:server:stopDetecting')
+	hideText()
+end
+
+local function find(ground)
+	ps.hideText()
+	if not minigame() then
+		hideText()
+		return false
 	end
+	SetEntityVisible(metalDetector, false, 0)
+	if not ps.progressbar(ps.lang('Progress.dig'), 8000, 'garden') then
+		hideText()
+		SetEntityVisible(metalDetector, true, 0)
+		return false
+	end
+	SetEntityVisible(metalDetector, true, 0)
+	TriggerServerEvent('md-metaldetecting:server:giveloot', ground)
+	hideText()
+	return true
+end
+
+local function searchText(ground)
+	if not Config.ShowDrawText then return end 
+	if ground then
+		search = ps.lang('DrawText.success')
+	else
+		search = ps.lang('DrawText.fail')
+	end
+	if search ~= displayed then
+		displayed = search
+		ps.drawText(displayed)
+	end
+end
+
+RegisterNetEvent("md-metaldetect:client:startDetecting",function(time)
+	if IsPedInAnyVehicle(PlayerPedId(), false) then
+		ps.notify(ps.lang('Fails.inVehicle'), 'error')
+		TriggerServerEvent('md-fishing:server:stopFishing')
+		return
+	end
+	if detecting then
+		ps.notify(ps.lang('Fails.alreadyDetecting'), 'error')
+		return
+	end
+	detecting = true
+	createDetector()
+	repeat
+		local timer = time
+		local groundBool, ground
+		repeat
+			groundBool, ground = allowedGround()
+			searchText(groundBool)
+			Wait(1000)
+			timer = timer - 1
+		until timer == 0 or not detecting or not DoesEntityExist(metalDetector) or IsPedInAnyVehicle(PlayerPedId(), false) or not groundBool
+		if not detecting then
+			stopDetecting()
+			return
+		end
+		if not DoesEntityExist(metalDetector) then
+			stopDetecting()
+			return
+		end
+		if IsPedInAnyVehicle(PlayerPedId(), false) then
+			ps.notify(ps.lang('Fails.inVehicle'), 'error')
+			stopDetecting()
+			return
+		end
+		if not groundBool then
+			searchText(groundBool)
+			goto continue
+		end
+		PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
+		ps.notify(ps.lang('Success.foundSomething'), 'success')
+		Wait(1000)
+		if not find(ground) then
+			goto continue
+		end
+		::continue::
+	until not detecting
 end)
 
+RegisterNetEvent("md-metaldetect:client:stopDetecting",function()
+	detecting = false
+	stopDetecting()
+end)
 
-function metaldetect()
-	QBCore.Functions.Notify("You found something!")
-	PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
-	FreezeEntityPosition(PlayerPedId(), true)
-	Wait(1500)
-exports['ps-ui']:Circle(function(success)
-if success then
-	TriggerServerEvent('md-metaldetecting:server:giveloot')
-	FreezeEntityPosition(PlayerPedId(), false)
-else
-	QBCore.Functions.Notify("You failed to find something!")
-	FreezeEntityPosition(PlayerPedId(), false)
-end
-end, 1, 8) -- NumberOfCircles, 
-end
-
-CreateThread(function()
-for k, v in pairs (Config.clumpwash) do
-	if Config.OxTarget then
-		clumpwash = exports.ox_target:addBoxZone({
-		coords = v,
-		size = vec(1,1,3),
-		rotation = 0,
-		debug = false,
-		options = {
-				{
-					name = 'clumpwash',
-					icon = "fas fa-sign-in-alt",
-					label = "Wash Clumps",
-					distance = 5,
-					onSelect = function()
-						TriggerEvent('animations:client:EmoteCommandStart', {"uncuff"})
-						QBCore.Functions.Progressbar("drink_something", "Washing Clumps", 4000, false, true, {
-						disableMovement = false,
-						disableCarMovement = false,
-						disableMouse = false,
-						disableCombat = true,
-						disableInventory = true,
-						}, {}, {}, {}, function()-- Done
-						TriggerServerEvent('md-metaldetecting:server:cleanclump')
-						ClearPedTasks(PlayerPedId())
-						end)
-					end,
-				},
-			},
-		})
-	else
-		exports['qb-target']:AddBoxZone("clumpwash" .. k,v,1.5, 1.75, { -- 963.37, -2122.95, 31.47
-		name = "clumpwash" .. k,
-		heading = 156.0,
-		debugPoly = false,
-		minZ = v.z-2,
-		maxZ = v.z+2,
-	}, {
-		options = {
+local function initZones()
+	local locations = ps.callback('md-metaldetecting:server:getLocs')
+	for k, v in pairs (locations.shop) do
+		if v.blipData and v.blipData.enabled then
+			local blip = AddBlipForCoord(v.loc.x, v.loc.y, v.loc.z)
+			SetBlipSprite (blip, v.blipData.sprite)
+			SetBlipDisplay(blip, 4)
+			SetBlipScale  (blip, v.blipData.scale)
+			SetBlipAsShortRange(blip, true)
+			SetBlipColour(blip, v.blipData.color)
+			BeginTextCommandSetBlipName("STRING")
+			AddTextComponentString(v.blipData.name)
+			EndTextCommandSetBlipName(blip)
+		end
+		ps.requestModel(v.ped)
+		local ped = CreatePed(4, v.ped, v.loc.x, v.loc.y, v.loc.z - 1.0, v.loc.w, false, true)
+		SetEntityInvincible(ped, true)
+		SetBlockingOfNonTemporaryEvents(ped, true)
+		FreezeEntityPosition(ped, true)
+		TaskStartScenarioInPlace(ped, "WORLD_HUMAN_STAND_IMPATIENT", 0, true)
+		ps.entityTarget(ped, {
 			{
-				icon = "fas fa-sign-in-alt",
-				label = "Wash Clumps",
+				label = ps.lang('Targets.shops.targ1.label', Config.Pricefordetector),
+				icon = ps.lang('Targets.shops.targ1.icon'),
 				action = function()
-					TriggerEvent('animations:client:EmoteCommandStart', {"uncuff"})
-					QBCore.Functions.Progressbar("drink_something", "Washing Clumps", 4000, false, true, {
-					disableMovement = true,
-					disableCarMovement = false,
-					disableMouse = false,
-					disableCombat = true,
-					disableInventory = true,
-					}, {}, {}, {}, function()-- Done
-					TriggerServerEvent('md-metaldetecting:server:cleanclump')
-					ClearPedTasks(PlayerPedId())
-					end)
-				end,
+					local type = ps.input(ps.lang('Targets.shops.targ1.input.header'), {
+						{type = 'select', options = {{label = ps.lang('Info.cash'), value = 'cash'}, {label = ps.lang('Info.bank'), value = 'bank'}}, title = ps.lang('Targets.shops.targ1.input.title'), required = true},
+					})
+					if not type then return end
+					if type and not type[1] then
+						return
+					end
+					TriggerServerEvent('md-metaldetecting:server:buyDetector', k, type[1])
+				end
 			},
-		},
-		distance = 2.5
-	})
-end
-end
-local metaldetectsales = {}
-
-for k, v in pairs (Config.LootSell) do 
-	metaldetectsales[#metaldetectsales + 1] = {
-				   icon = Config.InvWeblink..QBCore.Shared.Items[v.name].image,
-					title = v.label,
-					event = "md-metaldetecting:client:sellloot",
-					args = {
-						item = v.name,
-						cost = v.price,
-					}
-				}
-	lib.registerContext({id = 'metaldetectsales',title = "Metal Detect Sales", options = metaldetectsales})
-end
-	metaldetectingblip = AddBlipForCoord(Config.MetalDetectShop)
-    SetBlipSprite(metaldetectingblip, 459)
-    SetBlipScale(metaldetectingblip, 1.0)
-	SetBlipDisplay(metaldetectingblip, 4)
-	SetBlipAsShortRange(metaldetectingblip, true)
-    SetBlipColour(metaldetectingblip, 27)
-    BeginTextCommandSetBlipName("STRING")
-    AddTextComponentSubstringPlayerName("Metal Detecting Shop")
-    EndTextCommandSetBlipName(metaldetectingblip)
-	lib.requestModel("s_m_m_trucker_01", 500)
-	local current = "s_m_m_trucker_01"
-    metaldetectsales = CreatePed(0, current,Config.MetalDetectShop.x,Config.MetalDetectShop.y,Config.MetalDetectShop.z-1, false, false)
-	SetEntityHeading(metaldetectsales, 50.0)
-    FreezeEntityPosition(metaldetectsales, true)
-    SetEntityInvincible(metaldetectsales, true)
-	exports['qb-target']:AddTargetEntity(metaldetectsales, {
-                options = {
-                    {
-                        type = "client",
-                        label = "Buy Metal Detector",
-                        icon = "fas fa-eye",
-                        action = function()
-							TriggerEvent('animations:client:EmoteCommandStart', {"uncuff"})
-							QBCore.Functions.Progressbar("drink_something", "Buying A Metal Detector", 4000, false, true, {
-							disableMovement = true,
-							disableCarMovement = false,
-							disableMouse = false,
-							disableCombat = true,
-							disableInventory = true,
-							}, {}, {}, {}, function()-- Done
-							TriggerServerEvent("md-metaldetecting:server:buydetector")
-							ClearPedTasks(PlayerPedId())
-							end)
-						end	
-                    },
-					{
-                       type = "client",
-                        label = "Sell Loot",
-                        icon = "fas fa-eye",
-                        action = function()
-							lib.showContext('metaldetectsales')
+			{
+				label = ps.lang('Targets.shops.targ2.label'),
+				icon = ps.lang('Targets.shops.targ2.icon'),
+				action = function()
+					local loot = ps.callback('md-metaldetecting:server:getLoot', k)
+					if not loot then
+						return
+					end
+					local menu = {}
+					menu[#menu+1] = {
+						title = ps.lang('Targets.shops.targ2.sellAll'),
+						action = function()
+							TriggerServerEvent('md-metaldetecting:server:sellLoot', k, 'all')
 						end
-                    },
-                },
-                distance = 2.0
-            })	
-end)	
+					}
+					for item, price in pairs(loot) do
+						if ps.hasItem(item) then
+							menu[#menu+1] = {
+								title = ps.getLabel(item),
+								description = ps.lang('Targets.shops.targ2.menuDescription', price),
+								icon = ps.getImage(item),
+								action = function()
+									TriggerServerEvent('md-metaldetecting:server:sellLoot', k, item)
+								end
+							}
+						end
+					end
+					ps.menu(ps.lang('Targets.shops.targ2.header'), ps.lang('Targets.shops.targ2.header'), menu)
+				end
+			}
+		})
+	end
 
-RegisterNetEvent("md-metaldetecting:client:sellloot", function(data) local dialog
-	local price = data.cost 
-	local header = "$" .. price .. " each"
-	local dialog = exports.ox_lib:inputDialog(QBCore.Shared.Items[data.item].label,   {
-		{ type = 'number', label = "Amount to Sell",  description = header, min = 0, max = 50, default = 1 },
-	})
-		TriggerServerEvent("md-metaldetecting:server:sellloot", dialog[1], data.item, data.cost)
+	for k, v in pairs (locations.wash) do
+		if v.blipData and v.blipData.enabled then
+			local blip = AddBlipForCoord(v.loc.x, v.loc.y, v.loc.z)
+			SetBlipSprite (blip, v.blipData.sprite)
+			SetBlipDisplay(blip, 4)
+			SetBlipScale  (blip, v.blipData.scale)
+			SetBlipAsShortRange(blip, true)
+			SetBlipColour(blip, v.blipData.color)
+			BeginTextCommandSetBlipName("STRING")
+			AddTextComponentString(v.blipData.name)
+			EndTextCommandSetBlipName(blip)
+		end
+		ps.boxTarget('metalWash'..k, v.loc, {length = 1.0, width = 1.0, height = 1.0}, {
+			{
+				label = ps.lang('Targets.wash.label'),
+				icon = ps.lang('Targets.wash.icon'),
+				action = function()
+					if not minigame() then
+						return
+					end
+					if not ps.progressbar(ps.lang('Progress.wash'), 10000, 'uncuff') then
+						return
+					end
+					TriggerServerEvent('md-metaldetecting:server:washClump',k)
+				end
+			}
+		})
+	end
+end
+
+initZones()
+
+AddEventHandler('onResourceStop', function(resourceName)
+	if GetCurrentResourceName() ~= resourceName then return end
+	if DoesEntityExist(metalDetector) then
+		DeleteEntity(metalDetector)
+	end
 end)
