@@ -22,7 +22,10 @@ end
 
 local function checkSQL(source)
 	local identifier = ps.getIdentifier(source)
-	if cachedSQL[identifier] then return end
+	if cachedSQL[identifier] then
+		activeMetalDetectors[identifier] = {time = getTime(cachedSQL[identifier].level)}
+		return
+	end
 	local levelData = MySQL.query.await("SELECT * FROM md_metaldetecting WHERE citizenid = ?", {identifier})
 	if levelData and not levelData[1] then
 		MySQL.query.await('INSERT INTO md_metaldetecting (citizenid, level, name) VALUES (?, ?,?)', {ps.getIdentifier(source), json.encode({level = 0, xp = 0}), ps.getPlayerName(source)})
@@ -209,3 +212,20 @@ end
 
 AddEventHandler('esx:playerDropped', function(source) dropPlayer(source) end)
 AddEventHandler('QBCore:Server:OnPlayerUnload', function(source) dropPlayer(source) end)
+
+ps.registerCommand('resetMetaldetector',{}, function(source)
+	local src = source
+	local identifier = ps.getIdentifier(src)
+	if activeMetalDetectors[identifier] then
+		activeMetalDetectors[identifier] = nil
+		coolDowned[identifier] = nil
+		TriggerClientEvent('md-metaldetect:client:stopDetecting', src)
+	end
+	ps.notify(src, ps.lang('Success.reset'), 'success')
+end)
+
+repeat
+	Wait(1000)
+	ps.debug('Memory Usage: ' .. collectgarbage('count') .. ' KB')
+	ps.debug(activeMetalDetectors)
+until false

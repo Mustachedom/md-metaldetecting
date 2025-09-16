@@ -2,7 +2,7 @@ local detecting = false
 local metalDetector = nil
 local allowlist = {1288448767,1333033863, -1942898710, -1595148316,587194674,509508168, -1286696947,510490462, 1144315879, -461750719, 2128369009, 951832588, -1885547121  }
 local search, displayed = '', ''
-
+local stop = false
 local function GetGroundHash()
 	local coords = GetEntityCoords(PlayerPedId())
 	local num = StartShapeTestCapsule(coords.x,coords.y,coords.z+4,coords.x,coords.y,coords.z-2.0, 1,1,PlayerPedId(),7)
@@ -90,19 +90,23 @@ RegisterNetEvent("md-metaldetect:client:startDetecting",function(time)
 			searchText(groundBool)
 			Wait(1000)
 			timer = timer - 1
-		until timer == 0 or not detecting or not DoesEntityExist(metalDetector) or IsPedInAnyVehicle(PlayerPedId(), false) or not groundBool
+		until timer == 0 or not detecting or not DoesEntityExist(metalDetector) or IsPedInAnyVehicle(PlayerPedId(), false) or not groundBool or stop
+		if stop then
+			stopDetecting()
+			goto continue
+		end
 		if not detecting then
 			stopDetecting()
-			return
+			goto continue
 		end
 		if not DoesEntityExist(metalDetector) then
 			stopDetecting()
-			return
+			goto continue
 		end
 		if IsPedInAnyVehicle(PlayerPedId(), false) then
 			ps.notify(ps.lang('Fails.inVehicle'), 'error')
 			stopDetecting()
-			return
+			goto continue
 		end
 		if not groundBool then
 			searchText(groundBool)
@@ -116,10 +120,12 @@ RegisterNetEvent("md-metaldetect:client:startDetecting",function(time)
 		end
 		::continue::
 	until not detecting
+	stop = false
 end)
 
 RegisterNetEvent("md-metaldetect:client:stopDetecting",function()
 	detecting = false
+	stop = true
 	stopDetecting()
 end)
 
