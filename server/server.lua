@@ -75,6 +75,16 @@ ps.registerCommand('metaldetectLevel', {
 	ps.notify(src, ps.lang('Info.level', cachedSQL[identifier].level, cachedSQL[identifier].xp, levelUpAmount), 'success')
 end)
 
+local delay = {}
+local function handleDelay(id)
+	if delay[id] then return end
+	CreateThread(function()
+		delay[id] = true
+		Wait(2000)
+		delay[id] = nil
+	end)
+end
+
 ps.createUseable("metaldetector", function(source, item)
 	local src = source
 	local identifier = ps.getIdentifier(src)
@@ -83,8 +93,12 @@ ps.createUseable("metaldetector", function(source, item)
 		coolDowned[identifier] = nil
 		TriggerClientEvent('md-metaldetect:client:stopDetecting', src)
 	else
+		if delay[identifier] then
+			return
+		end
 		checkSQL(src)
 		coolDown(identifier)
+		handleDelay(identifier)
 		TriggerClientEvent('md-metaldetect:client:startDetecting', src, getTime(cachedSQL[identifier].level))
 	end
 end)
