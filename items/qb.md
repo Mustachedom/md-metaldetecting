@@ -1,4 +1,11 @@
 ```lua
+--- base qb items
+    metalscrap                   = { name = 'metalscrap', label = 'Metal Scrap', weight = 100, type = 'item', image = 'metalscrap.png', unique = false, useable = false, shouldClose = false, description = 'You can probably make something nice out of this' },
+    copper                       = { name = 'copper', label = 'Copper', weight = 100, type = 'item', image = 'copper.png', unique = false, useable = false, shouldClose = false, description = 'Nice piece of metal that you can probably use for something' },
+    aluminum                     = { name = 'aluminum', label = 'Aluminium', weight = 100, type = 'item', image = 'aluminum.png', unique = false, useable = false, shouldClose = false, description = 'Nice piece of metal that you can probably use for something' },
+    iron                         = { name = 'iron', label = 'Iron', weight = 100, type = 'item', image = 'iron.png', unique = false, useable = false, shouldClose = false, description = 'Handy piece of metal that you can probably use for something' },
+    steel                        = { name = 'steel', label = 'Steel', weight = 100, type = 'item', image = 'steel.png', unique = false, useable = false, shouldClose = false, description = 'Nice piece of metal that you can probably use for something' },
+  -- end base items  
 ['1792coin'] 				    = {name = "1792coin", 			    	label = "1792 Coin", 		     weight = 100, 		type = "item", 		image = "1792coin.png", 			unique = false, 	useable = true,     shouldClose = true,               description = "Even older"},
 ['1797coin'] 				    = {name = "1797coin", 			    	label = "1797 Coin", 		     weight = 100, 		type = "item", 		image = "1797coin.png", 			unique = false, 	useable = true,     shouldClose = true,               description = "Dat's old"},
 bobbypin 				    = {name = "bobbypin", 			    	label = "Bobby Pin", 		     weight = 100, 		type = "item", 		image = "bobbypin.png", 			    unique = false, 	useable = true, 	shouldClose = true,	                  description = "Put your hair up"},

@@ -1,4 +1,31 @@
 ```lua
+-- base qb/qbx items
+	['steel'] = {
+        label = 'Steel',
+        weight = 100,
+    },
+
+
+    ['metalscrap'] = {
+        label = 'Metal Scrap',
+        weight = 100,
+    },
+
+    ['iron'] = {
+        label = 'Iron',
+        weight = 100,
+    },
+
+    ['copper'] = {
+        label = 'Copper',
+        weight = 100,
+    },
+
+    ['aluminium'] = {
+        label = 'Aluminium',
+        weight = 100,
+    },
+--- end qb/qbx items
 ["golddiamondring"] = {
 		label = "Gold Diamond Ring",
 		weight = 100,
