@@ -8,7 +8,10 @@
   <a href="https://discord.gg/sAMzrB4DDx"><strong>Join Mustache Scripts Discord</strong></a>
 </div>
 
-
+## Features
+ - metal detect throughout sand and grass
+ - level system for faster detecting
+ - sell your loot 
 ## 📦 Dependencies
 
 | Dependency | Link |
@@ -41,4 +44,4 @@
   - adjust what you will like.
 
 **Step 4:**
-- move the folder bostra_metaldetector to the standalone folder of your server
+- move the folder bostra_metaldetector to the standalone folder of your server. This should act as any other script :) 

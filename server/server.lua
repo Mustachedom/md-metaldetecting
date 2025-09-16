@@ -208,6 +208,12 @@ RegisterNetEvent('md-metaldetecting:server:washClump', function(loc)
 		item = loot.common[math.random(1, #loot.common)]
 	end
 	if ps.removeItem(src, 'clump', 1) then
+		if item == 'clump' then
+			repeat 
+				item = loot.common[math.random(1, #loot.common)]
+				Wait(10)
+			until item ~= 'clump'
+		end
 		if ps.addItem(src, item, 1) then
 			ps.notify(src, ps.lang('Success.clumpWash', item), 'success')
 		end
@@ -237,9 +243,3 @@ ps.registerCommand('resetMetaldetector',{}, function(source)
 	end
 	ps.notify(src, ps.lang('Success.reset'), 'success')
 end)
-
-repeat
-	Wait(1000)
-	ps.debug('Memory Usage: ' .. collectgarbage('count') .. ' KB')
-	ps.debug(activeMetalDetectors)
-until false
