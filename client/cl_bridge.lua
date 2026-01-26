@@ -33,3 +33,26 @@ function minigame()
 		return true
 	end
 end
+
+function progressbar(text, time, anim)
+	if anim and type(anim) == 'string' then
+		CreateThread(function()
+			TaskStartScenarioInPlace(PlayerPedId(), anim, 0, true)
+			Wait(time - 4000)
+			ClearPedTasks(PlayerPedId())
+		end)
+	end
+	local successs = Bridge.ProgressBar.Open({
+    duration = time,
+    label = text,
+    canCancel = false,
+    disable = {
+        move = true,
+        car = true,
+        combat = true
+    },
+	anim = anim
+})
+    ClearPedTasks(PlayerPedId())
+	return successs
+end

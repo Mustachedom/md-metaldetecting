@@ -1,8 +1,19 @@
-ps.registerCallback('md-metaldetecting:server:getLocs', function(source) return locations end)
 
-ps.registerCallback('md-metaldetecting:server:getLoot', function(source, loc)
+local function checkDistance(src, pos, dist, event)
+	local playerPos = GetEntityCoords(GetPlayerPed(src))
+	local distance = #(vector3(playerPos.x, playerPos.y, playerPos.z) - vector3(pos.x, pos.y, pos.z))
+	if distance >= dist then
+		Bridge.Prints.Warn('FUCK FACE CHEATING')
+		return false
+	end
+	return true
+end
+
+Bridge.Callback.Register('md-metaldetecting:server:getLocs', function(source) return locations end)
+
+Bridge.Callback.Register('md-metaldetecting:server:getLoot', function(source, loc)
     local src = source
-    if not ps.checkDistance(src, locations['shop'][loc].loc, 5.0) then
+    if not checkDistance(src, locations['shop'][loc].loc, 5.0, 'md-metaldetecting:server:getLoot') then
         return false
     end
     return SellLoot
@@ -21,14 +32,15 @@ local function coolDown(id)
 end
 
 local function checkSQL(source)
-	local identifier = ps.getIdentifier(source)
+	local identifier = Bridge.Framework.GetPlayerIdentifier(source)
 	if cachedSQL[identifier] then
 		activeMetalDetectors[identifier] = {time = getTime(cachedSQL[identifier].level)}
 		return
 	end
 	local levelData = MySQL.query.await("SELECT * FROM md_metaldetecting WHERE citizenid = ?", {identifier})
 	if levelData and not levelData[1] then
-		MySQL.query.await('INSERT INTO md_metaldetecting (citizenid, level, name) VALUES (?, ?,?)', {ps.getIdentifier(source), json.encode({level = 0, xp = 0}), ps.getPlayerName(source)})
+		local first, last = Bridge.Framework.GetPlayerName(source)
+		MySQL.query.await('INSERT INTO md_metaldetecting (citizenid, level, name) VALUES (?, ?,?)', {identifier, json.encode({level = 0, xp = 0}), first .. " " .. last})
 		cachedSQL[identifier] = {
 			level = 0,
 			xp = 0
@@ -47,19 +59,19 @@ local function checkSQL(source)
 	end
 end
 
-ps.registerCommand('metaldetectLevel', {
-},function(source, args)
+RegisterCommand('metaldetectLevel', function(source, args)
 	local src = source
-	local identifier = ps.getIdentifier(src)
+	local identifier = Bridge.Framework.GetPlayerIdentifier(src)
 	if not cachedSQL[identifier] then
 		local levelData = MySQL.query.await("SELECT * FROM md_metaldetecting WHERE citizenid = ?", {identifier})
 		if levelData and not levelData[1] then
-			MySQL.query.await('INSERT INTO md_metaldetecting (citizenid, level, name) VALUES (?, ?,?)', {ps.getIdentifier(source), json.encode({level = 0, xp = 0}), ps.getPlayerName(source)})
+			local first, last = Bridge.Framework.GetPlayerName(source)
+			MySQL.query.await('INSERT INTO md_metaldetecting (citizenid, level, name) VALUES (?, ?,?)', {identifier, json.encode({level = 0, xp = 0}), first .. " " .. last})
 			cachedSQL[identifier] = {
 				level = 0,
 				xp = 0
 			}
-			ps.notify(src, ps.lang('Info.level', cachedSQL[identifier].level, cachedSQL[identifier].xp, levelUpAmount), 'success')
+			Bridge.Notify.SendNotify(src, Bridge.Language.Locale('Info.level', cachedSQL[identifier].level, cachedSQL[identifier].xp, levelUpAmount), 'success')
 			return
 		end
 		if levelData and levelData[1] then
@@ -68,12 +80,12 @@ ps.registerCommand('metaldetectLevel', {
 				level = level.level,
 				xp = level.xp
 			}
-			ps.notify(src, ps.lang('Info.level', cachedSQL[identifier].level, cachedSQL[identifier].xp, levelUpAmount), 'success')
+			Bridge.Notify.SendNotify(src, Bridge.Language.Locale('Info.level', cachedSQL[identifier].level, cachedSQL[identifier].xp, levelUpAmount), 'success')
 			return
 		end
 	end
-	ps.notify(src, ps.lang('Info.level', cachedSQL[identifier].level, cachedSQL[identifier].xp, levelUpAmount), 'success')
-end)
+	Bridge.Notify.SendNotify(src, Bridge.Language.Locale('Info.level', cachedSQL[identifier].level, cachedSQL[identifier].xp, levelUpAmount), 'success')
+end, false)
 
 local delay = {}
 local function handleDelay(id)
@@ -85,9 +97,9 @@ local function handleDelay(id)
 	end)
 end
 
-ps.createUseable("metaldetector", function(source, item)
+Bridge.Framework.RegisterUsableItem("metaldetector", function(source, item)
 	local src = source
-	local identifier = ps.getIdentifier(src)
+	local identifier = Bridge.Framework.GetPlayerIdentifier(src)
 	if activeMetalDetectors[identifier] then
 		activeMetalDetectors[identifier] = nil
 		coolDowned[identifier] = nil
@@ -105,7 +117,7 @@ end)
 
 RegisterNetEvent('md-metaldetecting:server:stopDetecting', function()
 	local src = source
-	local identifier = ps.getIdentifier(src)
+	local identifier = Bridge.Framework.GetPlayerIdentifier(src)
 	if activeMetalDetectors[identifier] then
 		activeMetalDetectors[identifier] = nil
 		coolDowned[identifier] = nil
@@ -113,16 +125,15 @@ RegisterNetEvent('md-metaldetecting:server:stopDetecting', function()
 	end
 end)
 
-ps.versionCheck('md-metaldetecting', 'https://raw.githubusercontent.com/Mustachedom/md-metaldetecting/refs/heads/main/version.txt', 'https://github.com/Mustachedom/md-metaldetecting')
 
 RegisterServerEvent('md-metaldetecting:server:giveloot', function(ground)
 	local src = source
-    local identifier = ps.getIdentifier(src)
+    local identifier = Bridge.Framework.GetPlayerIdentifier(src)
 
 	if not activeMetalDetectors[identifier] then return end
 	if coolDowned[identifier] then return end
 	if not cachedSQL[identifier] then return end
-	if not ps.tableContains(allowlist, ground) then return end
+	if not Bridge.Tables.TableContains(allowlist, ground) then return end
 
 	local rare, item  = math.random(1,100), nil
 	if rare <= rareChance then
@@ -132,7 +143,7 @@ RegisterServerEvent('md-metaldetecting:server:giveloot', function(ground)
 	end
 
 	local pData = cachedSQL[identifier]
-	if ps.addItem(src, item, 1) then
+	if Bridge.Inventory.AddItem(src, item, 1) then
 		pData.xp = pData.xp + 1
 		if pData.xp >= levelUpAmount then
 			if pData.level < 10 then
@@ -140,7 +151,7 @@ RegisterServerEvent('md-metaldetecting:server:giveloot', function(ground)
 				pData.xp = 0
 				activeMetalDetectors[identifier] = nil
 				coolDowned[identifier] = nil
-				ps.notify(src, ps.lang('Success.levelUp', pData.level), 'success')
+				Bridge.Notify.SendNotify(src, Bridge.Language.Locale('Success.levelUp', pData.level), 'success')
 				TriggerClientEvent('md-metaldetect:client:stopDetecting', src)
 			end
 		end
@@ -151,53 +162,53 @@ end)
 
 RegisterNetEvent('md-metaldetecting:server:buyDetector', function(loc, type)
 	local src = source
-	if not ps.checkDistance(src, locations['shop'][loc].loc, 5.0) then
+	if not checkDistance(src, locations['shop'][loc].loc, 5.0, 'md-metaldetecting:server:buyDetector') then
 		return
 	end
-	if ps.removeMoney(src, type, Config.Pricefordetector) then
-		ps.addItem(src, 'metaldetector', 1)
+	if Bridge.Framework.RemoveAccountBalance(src, type, Config.Pricefordetector) then
+		Bridge.Inventory.AddItem(src, 'metaldetector', 1)
 	else
-		ps.notify(src, ps.lang('Fails.broke'), 'error')
+		Bridge.Notify.SendNotify(src, Bridge.Language.Locale('Fails.broke'), 'error')
 	end
 end)
 
 RegisterNetEvent('md-metaldetecting:server:sellLoot', function(loc, item)
 	local src = source
-	if not ps.checkDistance(src, locations['shop'][loc].loc, 5.0) then
+	if not checkDistance(src, locations['shop'][loc].loc, 5.0, 'md-metaldetecting:server:sellLoot') then
 		return
 	end
 	if item == 'all' then
 		local count, total = 0, 0
 		for k, v in pairs(SellLoot) do
-			local amount = ps.getItemCount(src, k)
+			local amount = Bridge.Inventory.GetItemCount(src, k)
 			if amount and amount > 0 then
-				if ps.removeItem(src, k, amount) then
-					ps.addMoney(src, 'cash', v * amount)
+				if Bridge.Inventory.RemoveItem(src, k, amount) then
+					Bridge.Framework.AddAccountBalance(src, 'cash', v * amount)
 					count = count + amount
 					total = total + (v * amount)
 				end
 			end
 		end
-		ps.notify(src, ps.lang('Success.sold', count, total), 'success')
+		Bridge.Notify.SendNotify(src, Bridge.Language.Locale('Success.sold', count, total), 'success')
 		return
 	end
 	if not SellLoot[item] then
 		return
 	end
-	local amount = ps.getItemCount(src, item)
+	local amount = Bridge.Inventory.GetItemCount(src, item)
 	if amount and amount > 0 then
-		if ps.removeItem(src, item, amount) then
-			ps.addMoney(src, 'cash', SellLoot[item] * amount)
-			ps.notify(src, ps.lang('Success.sold', amount, SellLoot[item] * amount), 'success')
+		if Bridge.Inventory.RemoveItem(src, item, amount) then
+			Bridge.Framework.AddAccountBalance(src, 'cash', SellLoot[item] * amount)
+			Bridge.Notify.SendNotify(src, Bridge.Language.Locale('Success.sold', amount, SellLoot[item] * amount), 'success')
 		end
 	else
-		ps.notify(src, ps.lang('Fails.noItems', item), 'error')
+		Bridge.Notify.SendNotify(src, Bridge.Language.Locale('Fails.noItems', item), 'error')
 	end
 end)
 
 RegisterNetEvent('md-metaldetecting:server:washClump', function(loc)
 	local src = source
-	if not ps.checkDistance(src, locations['wash'][loc].loc, 5.0) then
+	if not checkDistance(src, locations['wash'][loc].loc, 5.0, 'md-metaldetecting:server:washClump') then
 		return
 	end
 	local maths = math.random(1,100)
@@ -207,23 +218,23 @@ RegisterNetEvent('md-metaldetecting:server:washClump', function(loc)
 	else
 		item = loot.common[math.random(1, #loot.common)]
 	end
-	if ps.removeItem(src, 'clump', 1) then
+	if Bridge.Inventory.RemoveItem(src, 'clump', 1) then
 		if item == 'clump' then
 			repeat 
 				item = loot.common[math.random(1, #loot.common)]
 				Wait(10)
 			until item ~= 'clump'
 		end
-		if ps.addItem(src, item, 1) then
-			ps.notify(src, ps.lang('Success.clumpWash', item), 'success')
+		if Bridge.Inventory.AddItem(src, item, 1) then
+			Bridge.Notify.SendNotify(src, Bridge.Language.Locale('Success.clumpWash', item), 'success')
 		end
 	else
-		ps.notify(src, ps.lang('Fails.noClump'), 'error')
+		Bridge.Notify.SendNotify(src, Bridge.Language.Locale('Fails.noClump'), 'error')
 	end
 end)
 
 local function dropPlayer(src)
-	local identifier = ps.getIdentifier(src)
+	local identifier = Bridge.Framework.GetPlayerIdentifier(src)
 	if activeMetalDetectors[identifier] then
 		activeMetalDetectors[identifier] = nil
 		TriggerClientEvent('md-metaldetect:client:stopDetecting', src)
@@ -233,13 +244,13 @@ end
 AddEventHandler('esx:playerDropped', function(source) dropPlayer(source) end)
 AddEventHandler('QBCore:Server:OnPlayerUnload', function(source) dropPlayer(source) end)
 
-ps.registerCommand('resetMetaldetector',{}, function(source)
+RegisterCommand('resetMetaldetector', function(source)
 	local src = source
-	local identifier = ps.getIdentifier(src)
+	local identifier = Bridge.Framework.GetPlayerIdentifier(src)
 	if activeMetalDetectors[identifier] then
 		activeMetalDetectors[identifier] = nil
 		coolDowned[identifier] = nil
 		TriggerClientEvent('md-metaldetect:client:stopDetecting', src)
 	end
-	ps.notify(src, ps.lang('Success.reset'), 'success')
-end)
+	Bridge.Notify.SendNotify(src, Bridge.Language.Locale('Success.reset'), 'success')
+end, false)

@@ -24,7 +24,7 @@ locations = {
 }
 
 levels = { -- Level | time in seconds
-    [0] = 55,
+    [0] = 2,
     [1] = 50,
     [2] = 45,
     [3] = 40,

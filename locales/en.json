@@ -1,0 +1,52 @@
+{
+  "Info": {
+    "currency": "$",
+    "cash": "Cash",
+    "bank": "Bank",
+    "level": "Level:  | %s | XP: %s / %s"
+  },
+  "DrawText": {
+    "success": "Scanning For Metals Under You",
+    "fail": "Cant Scan This Material"
+  },
+  "Fails": {
+    "inVehicle": "You cannot use the metal detector in a vehicle!",
+    "alreadyDetecting": "You are already using the metal detector!",
+    "broke": "You Are Too Broke To Buy This!",
+    "noItems": "You Dont Have Any %s To Sell",
+    "noClump": "You Dont Have Any Clumps To Wash"
+  },
+  "Success": {
+    "foundSomething": "You found something!",
+    "levelUp": "You leveled up to level %s!",
+    "sold": " You Sold %s items for $%s",
+    "clumpWash": "You Washed A Clump And Got %s"
+  },
+  "Progress": {
+    "dig": "Digging Up Your Findings!",
+    "wash": "Washing Your Clump!"
+  },
+  "Targets": {
+    "shops": {
+      "targ1": {
+        "label": "Buy Metal Detector For $%s",
+        "icon": "fas fa-shopping-basket",
+        "input": {
+          "header": "Payment Type",
+          "title": "Choose Your Payment Method"
+        }
+      },
+      "targ2": {
+        "label": "Sell Items",
+        "icon": "fas fa-shopping-basket",
+        "sellAll": "Sell All",
+        "menuDescription": "$%s Each",
+        "header": "Metal Detector Sales"
+      }
+    },
+    "wash": {
+      "label": "Wash Clump",
+      "icon": "fas fa-water"
+    }
+  }
+}

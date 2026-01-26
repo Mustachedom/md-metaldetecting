@@ -1,7 +1,7 @@
 Config = {}
 ps = exports.ps_lib:init()
-ps.loadLangs('uwu')
 
+Bridge = exports.community_bridge:Bridge()
 Config.Pricefordetector = 500 -- how much you pay for the metal detector
 Config.ShowDrawText = true -- shows draw text showing you are on the correct ground or not while metal detecting
 Config.Minigames = {
