@@ -1,9 +1,9 @@
 Config = {}
-ps = exports.ps_lib:init()
 
 Bridge = exports.community_bridge:Bridge()
 Config.Pricefordetector = 500 -- how much you pay for the metal detector
 Config.ShowDrawText = true -- shows draw text showing you are on the correct ground or not while metal detecting
+
 Config.Minigames = {
     ps_circle =     {amount = 2,     speed = 8,},
     ox =            {'easy', 'easy'},   --easy medium or hard each one corresponds to how many skillchecks and the difficulty
